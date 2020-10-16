@@ -1,0 +1,35 @@
+.col-content{
+    padding: 10px 20px;
+}
+.row-content-image{
+    padding-left: 20px;
+}
+.row-content{
+    padding-right: 20px;
+}
+.card-img-left{
+    width: 100%;
+}
+.row-content-image{
+    padding-right: 0;
+}
+.card-img-left, .row-content-image{
+    height: 225px;
+}
+.row-content-wrapper{
+    padding-left: 0;
+}
+.row-content{
+    padding: 10px;
+    border: 1px solid lightgray;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    height: 100%;
+    margin-right: 5px;
+}
+.card-img-top{
+    height: 200px;
+}
+.card{
+    border: 1px solid lightgray;
+}
