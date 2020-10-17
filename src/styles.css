@@ -12,3 +12,10 @@ body{
 .center{
     text-align: center;
 }
+.spn-btn{
+    cursor: pointer;
+    color: #0275d8;
+}
+.spn-btn:hover{
+    color: blue;
+}

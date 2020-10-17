@@ -1,0 +1,41 @@
+<div class="card">
+    <div class="card-header center">
+        <span (click)="closeAcountModal()" class="float-right spn-btn"><i class="far fa-times-circle"></i></span>
+        Signup And Explore
+    </div>
+    <div class="card-body p-4">
+        <form>
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <div class="form-group">
+                        <label for="firstName">First Name:</label>
+                        <input type="text" class="form-control" id="firstName" name="firstName" [(ngModel)]="user.firstName" placeholder="e.g. Jhon" />
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="form-group">
+                        <label for="lastName">Last Name:</label>
+                        <input type="text" class="form-control" id="lastName" name="lastName" [(ngModel)]="user.lastName" placeholder="e.g. Doe" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" [(ngModel)]="user.email" placeholder="e.g. jhon@gmail.com" />
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" id="password" name="password" [(ngModel)]="user.password" placeholder="Enter password" />
+            </div>
+            <div class="form-group">
+                <label for="rePassword">Retype Password:</label>
+                <input type="password" class="form-control" id="rePassword" name="rePassword" [(ngModel)]="user.rePassword" placeholder="Re-enter password" />
+            </div>
+            <div>
+                <span (click)="openLogin()" class="spn-btn">Already have an account?</span>
+                <button class="btn btn-primary float-right">Signup</button>
+            </div>
+        </form>
+        
+    </div>
+</div>

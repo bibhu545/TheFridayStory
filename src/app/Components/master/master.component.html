@@ -51,16 +51,10 @@
                         </div>
                     </form>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        &nbsp;&nbsp;
-                        <i class="fas fa-user"></i>
+                <li class="nav-item">
+                    <a class="nav-link text-primary" href="javascript:void(0)">
+                        <i class='fas fa-user-plus ml-2' (click)="openAccount()"></i>
                     </a>
-                    <div class="dropdown-menu dropdown-menu-right animate slideIn" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="javascript:void(0)" (click)="openAccount()">Join Now</a>
-                        <a class="dropdown-item" href="javascript:void(0)" (click)="openAccount()">Log in</a>
-                    </div>
                 </li>
             </ul>
         </div>
@@ -72,7 +66,7 @@
         <div class="col-8 mt-2">
             <router-outlet></router-outlet>
         </div>
-        <div class="col-4 mt-4">
+        <div class="col-4 mt-2 p-3">
             <app-right-panel></app-right-panel>
         </div>
     </div>

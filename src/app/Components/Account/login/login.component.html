@@ -1,0 +1,23 @@
+<div class="card">
+    <div class="card-header center">
+        <span (click)="closeAcountModal()" class="float-right spn-btn"><i class="far fa-times-circle"></i></span>
+        Login Now
+    </div>
+    <div class="card-body p-4">
+        <form>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" [(ngModel)]="user.email" placeholder="e.g. jhon@gmail.com" />
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" id="password" name="password" [(ngModel)]="user.password" placeholder="Enter password" />
+            </div>
+            <div>
+                <button class="btn btn-primary btn-account">Login</button>
+            </div>
+        </form>
+        <span (click)="openForgotPassword()" class="spn-btn float-left mt-2">Forgot password</span>
+        <span (click)="openSignup()" class="spn-btn float-right mt-2">Signup and explore</span>
+    </div>
+</div>
