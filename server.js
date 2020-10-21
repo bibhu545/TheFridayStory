@@ -1,18 +1,31 @@
 const express = require('express');
 const path = require('path');
+const mongoose = require('mongoose')
+const morgan = require('morgan')
+const bodyParser = require('body-parser')
 
-// Get our API routes
 const homeRoutes = require('./api/routes/homeRoutes');
-// const articleRoutes = require('./api/routes/articleRoutes');
+const userRoutes = require('./api/routes/userRoutes');
+
+
+mongoose.connect('mongodb+srv://blogUser:blogPassword@testcluster.eik60.mongodb.net/blog', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true
+})
+
 
 const app = express();
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+app.use(morgan('dev'))
 
-// Point static path to dist
+// Point static path to dist (angular build results)
 app.use(express.static(path.join(__dirname, 'dist')));
 
 // Set our api routes
-// app.use('/api/articles', articleRoutes);
 app.use('/api', homeRoutes);
+app.use('/api/user', userRoutes);
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/index.html'));
