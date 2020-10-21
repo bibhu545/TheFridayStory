@@ -39,8 +39,7 @@ router.post('/', (req, res, next) => {
         userId: req.body.userId,
         title: req.body.title,
         description: req.body.description,
-        content: req.body.content,
-        slug: dompurify.sanitize(this.content)
+        content: dompurify.sanitize(req.body.content)
     }
     Articles.create(articleData).then(response => {
         Articles.findOne({ _id: response._id }).populate('userId', 'firstName lastName email').exec().then(result => {

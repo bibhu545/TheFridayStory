@@ -1,10 +1,10 @@
 const mongoose = require('mongoose')
 const utils = require('../utils')
 
-const commentSchema = mongoose.Schema({
-    article:{
+const commentReplySchema = mongoose.Schema({
+    comment:{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Articles',
+        ref: 'Comments',
         required: true
     },
     user: {
@@ -12,11 +12,11 @@ const commentSchema = mongoose.Schema({
         ref: 'Users',
         required: true
     },
-    comment: {
+    reply: {
         type: String,
         required: true
     },
-    commentedOn: {
+    repliedOn: {
         type: Date,
         required: true,
         default: new Date()
@@ -32,4 +32,4 @@ const commentSchema = mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model('Comments', commentSchema)
+module.exports = mongoose.model('CommentReplys', commentReplySchema)

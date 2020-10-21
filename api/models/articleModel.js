@@ -34,7 +34,7 @@ const articleSchema = new mongoose.Schema({
     },
     isActive: {
         type: Number,
-        default: utils.ArticleStatus.Active
+        default: utils.ActiveStatus.Active
     }
 })
 
