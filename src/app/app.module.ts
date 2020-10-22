@@ -15,8 +15,8 @@ import { LoginComponent } from './Components/Account/login/login.component';
 import { SignupComponent } from './Components/Account/signup/signup.component';
 import { ChangePasswordComponent } from './Components/Account/change-password/change-password.component';
 import { ForgotPasswordComponent } from './Components/Account/forgot-password/forgot-password.component';
-import { EditPostComponent } from './Components/edit-post/edit-post.component';
-import { ViewPostComponent } from './Components/view-post/view-post.component';
+import { ContributeComponent } from './Components/contribute/contribute.component';
+import { ViewArticleComponent } from './Components/view-article/view-article.component';
 
 @NgModule({
   declarations: [
@@ -30,8 +30,8 @@ import { ViewPostComponent } from './Components/view-post/view-post.component';
     AccountComponent,
     ChangePasswordComponent,
     ForgotPasswordComponent,
-    EditPostComponent,
-    ViewPostComponent
+    ContributeComponent,
+    ViewArticleComponent
   ],
   imports: [
     BrowserModule,
