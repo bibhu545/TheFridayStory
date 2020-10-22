@@ -7,6 +7,7 @@ const bodyParser = require('body-parser')
 const homeRoutes = require('./api/routes/homeRoutes');
 const userRoutes = require('./api/routes/userRoutes');
 const articleRoutes = require('./api/routes/articleRoutes');
+const adminRoutes = require('./api/routes/adminRoutes');
 
 
 mongoose.connect('mongodb+srv://blogUser:blogPassword@testcluster.eik60.mongodb.net/blog', {
@@ -28,6 +29,7 @@ app.use(express.static(path.join(__dirname, 'dist')));
 app.use('/api', homeRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/article', articleRoutes);
+app.use('/api/admin', adminRoutes);
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/index.html'));

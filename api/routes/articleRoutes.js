@@ -8,7 +8,7 @@ const dompurify = createDomPurify(new JSDOM().window)
 const router = express.Router()
 
 router.get('/', (req, res, next) => {
-    Articles.find({ isActive: utils.ArticleStatus.Active }).sort({ createdAt: -1 }).populate('userId', 'firstName lastName email').then(response => {
+    Articles.find().sort({ createdAt: -1 }).populate('user', 'firstName lastName email').populate('categories').then(response => {
         res.status(200).json({
             data: response
         });
@@ -36,13 +36,16 @@ router.get('/:id', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
     let articleData = {
-        userId: req.body.userId,
+        user: req.body.user,
         title: req.body.title,
         description: req.body.description,
+        readingTime: req.body.readingTime,
+        categories: req.body.categories,
+        tags: req.body.tags,
         content: dompurify.sanitize(req.body.content)
     }
     Articles.create(articleData).then(response => {
-        Articles.findOne({ _id: response._id }).populate('userId', 'firstName lastName email').exec().then(result => {
+        Articles.findOne({ _id: response._id }).populate('user', 'firstName lastName email').exec().then(result => {
             res.status(201).json({
                 data: result
             });
@@ -58,6 +61,8 @@ router.put('/:id', (req, res, next) => {
     let newArticleData = {
         title: req.body.title,
         description: req.body.description,
+        categories: req.body.categories,
+        tags: req.body.tags,
         content: dompurify.sanitize(req.body.content)
     }
     Articles.findById({ _id: req.params.id }).then(oldData => {
@@ -69,6 +74,8 @@ router.put('/:id', (req, res, next) => {
         else {
             oldData.title = newArticleData.title;
             oldData.description = newArticleData.description;
+            oldData.tags = newArticleData.tags;
+            oldData.categories = newArticleData.categories;
             oldData.content = newArticleData.content;
             oldData.save().then(updatedData => {
                 Articles.findOne({ _id: updatedData._id }).populate('userId', 'firstName lastName email').exec().then(result => {

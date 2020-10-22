@@ -3,7 +3,7 @@ const slugify = require('slugify')
 const utils = require('../utils')
 
 const articleSchema = new mongoose.Schema({
-    userId: {
+    user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Users',
         required: true
@@ -24,6 +24,18 @@ const articleSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    readingTime: {  
+        type: Number,
+        default: 5
+    },
+    categories: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Categories'
+    }],
+    tags: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Tags'
+    }],
     createdAt: {
         type: Date,
         default: new Date()
@@ -46,3 +58,14 @@ articleSchema.pre('validate', function (next) {
 })
 
 module.exports = mongoose.model('Article', articleSchema) 
+
+
+// {
+//     "user":"5f9073e57592802e1c6827f1",
+//     "title":"The firstever title",
+//     "description": "The firstever description",
+//     "content": "The firstever content",
+//     "readingTime": "5",
+//     "categories": ["5f91f004f625000db8bca440"],
+//     "tags":[]
+// }
