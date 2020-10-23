@@ -7,12 +7,17 @@ const commentSchema = mongoose.Schema({
         ref: 'Articles',
         required: true
     },
+    comment:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Comments',
+        default: null
+    },
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Users',
         required: true
     },
-    comment: {
+    commentBody: {
         type: String,
         required: true
     },

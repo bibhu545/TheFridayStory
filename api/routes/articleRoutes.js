@@ -2,13 +2,14 @@ const express = require('express')
 const createDomPurify = require('dompurify')
 const { JSDOM } = require('jsdom')
 const Articles = require('../models/articleModel')
+const Tags = require('../models/tagModel')
 const utils = require('../utils')
 
 const dompurify = createDomPurify(new JSDOM().window)
 const router = express.Router()
 
 router.get('/', (req, res, next) => {
-    Articles.find().sort({ createdAt: -1 }).populate('user', 'firstName lastName email').populate('categories').then(response => {
+    Articles.find().sort({ createdAt: -1 }).populate('user', 'firstName lastName email').populate('categories').populate('tags').then(response => {
         res.status(200).json({
             data: response
         });
@@ -34,18 +35,18 @@ router.get('/:id', (req, res, next) => {
     })
 })
 
-router.post('/', (req, res, next) => {
+router.post('/', addNewTags, (req, res, next) => {
     let articleData = {
         user: req.body.user,
         title: req.body.title,
         description: req.body.description,
         readingTime: req.body.readingTime,
         categories: req.body.categories,
-        tags: req.body.tags,
+        tags: req.tags,
         content: dompurify.sanitize(req.body.content)
     }
     Articles.create(articleData).then(response => {
-        Articles.findOne({ _id: response._id }).populate('user', 'firstName lastName email').exec().then(result => {
+        Articles.findOne({ _id: response._id }).populate('user', 'firstName lastName email').populate('categories').populate('tags').then(result => {
             res.status(201).json({
                 data: result
             });
@@ -57,12 +58,12 @@ router.post('/', (req, res, next) => {
     })
 })
 
-router.put('/:id', (req, res, next) => {
+router.put('/:id', addNewTags, (req, res, next) => {
     let newArticleData = {
         title: req.body.title,
         description: req.body.description,
         categories: req.body.categories,
-        tags: req.body.tags,
+        tags: req.tags,
         content: dompurify.sanitize(req.body.content)
     }
     Articles.findById({ _id: req.params.id }).then(oldData => {
@@ -117,3 +118,32 @@ router.delete('/:id', (req, res, next) => {
 })
 
 module.exports = router
+
+function addNewTags(req, res, next) {
+    var reqTags = req.body.tags;
+    Tags.find().then(tags => {
+        let newTags = [], oldTags = [];
+        reqTags.forEach(element => {
+            if (!tags.find(item => item.name == element)) {
+                newTags.push({ name: element.name, user: req.body.user });
+            }
+            else {
+                oldTags.push(element.id);
+            }
+        });
+        Tags.insertMany(newTags).then(response => {
+            let tagObjects = [...oldTags, ...response.map(item => item._id)];
+            let tagIds = [];
+            tagObjects.forEach(element => {
+                tagIds.push(element);
+            });
+            console.log(tagIds)
+            req.tags = tagIds;
+            next();
+        }).catch(error => {
+            utils.errorMessage(res, 500, utils.ERROR_MESSAGE, error);
+        });
+    }).catch(error => {
+        utils.errorMessage(res, 500, utils.ERROR_MESSAGE, error);
+    });
+}

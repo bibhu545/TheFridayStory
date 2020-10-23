@@ -20,4 +20,9 @@ const categorySchema = mongoose.Schema({
     }
 })
 
+// categorySchema.pre('remove', function(next) {
+//     // Remove all the assignment docs that reference the removed person.
+//     this.model('Assignment').remove({ person: this._id }, next);
+// });
+
 module.exports = mongoose.model('Categories', categorySchema)
