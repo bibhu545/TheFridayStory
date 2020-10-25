@@ -3,6 +3,7 @@ const Article = require('../models/articleModel')
 
 const router = express.Router();
 
+//record no of page visits here
 router.get('/', (req, res) => {
     Article.find().sort({ createdAt: 'desc' }).then(articles => {
         res.send(articles)

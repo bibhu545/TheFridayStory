@@ -36,6 +36,9 @@ const articleSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Tags'
     }],
+    articleImage:{
+        type: String
+    },
     createdAt: {
         type: Date,
         default: new Date()
@@ -69,3 +72,8 @@ module.exports = mongoose.model('Article', articleSchema)
 //     "categories": ["5f91f004f625000db8bca440"],
 //     "tags":[]
 // }
+
+
+// const { id } = req.body
+// const path = `./uploads/gallery/${id}`
+// fs.mkdirSync(path, { recursive: true })

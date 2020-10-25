@@ -3,6 +3,7 @@ const path = require('path');
 const mongoose = require('mongoose')
 const morgan = require('morgan')
 const bodyParser = require('body-parser')
+const fileupload = require('express-fileupload')
 
 const homeRoutes = require('./api/routes/homeRoutes');
 const userRoutes = require('./api/routes/userRoutes');
@@ -11,16 +12,22 @@ const adminRoutes = require('./api/routes/adminRoutes');
 
 
 mongoose.connect('mongodb+srv://blogUser:blogPassword@testcluster.eik60.mongodb.net/blog', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+  useFindAndModify: true
 })
 
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+app.use(fileupload({
+    limits: { fileSize: 5 * 1024 * 1024 },
+    createParentPath: true
+}))
 app.use(morgan('dev'))
+app.use('/uploads', express.static('./uploads'))
 
 // Point static path to dist (angular build results)
 app.use(express.static(path.join(__dirname, 'dist')));
