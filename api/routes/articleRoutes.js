@@ -4,6 +4,7 @@ const { JSDOM } = require('jsdom')
 const Articles = require('../models/articleModel')
 const utils = require('../utils')
 const articleMiddlewares = require('../middlewares/articleMiddlewares')
+const checkAuth = require('../middlewares/routeGuard')
 
 const dompurify = createDomPurify(new JSDOM().window)
 const router = express.Router()
@@ -35,7 +36,7 @@ router.get('/:id', (req, res, next) => {
     })
 })
 
-router.post('/', articleMiddlewares.addNewTags, (req, res, next) => {
+router.post('/', checkAuth, articleMiddlewares.addNewTags, (req, res, next) => {
     let articleData = {
         user: req.body.user,
         title: req.body.title,
@@ -53,7 +54,7 @@ router.post('/', articleMiddlewares.addNewTags, (req, res, next) => {
     })
 }, articleMiddlewares.saveArticleImage)
 
-router.put('/:id', articleMiddlewares.addNewTags, (req, res, next) => {
+router.put('/:id', checkAuth, articleMiddlewares.addNewTags, (req, res, next) => {
     let newArticleData = {
         title: req.body.title,
         description: req.body.description,
@@ -90,7 +91,7 @@ router.put('/:id', articleMiddlewares.addNewTags, (req, res, next) => {
     })
 })
 
-router.delete('/:id', (req, res, next) => {
+router.delete('/:id', checkAuth, (req, res, next) => {
     Articles.findById({ _id: req.params.id }).then(oldData => {
         if (!oldData) {
             res.status(404).json({

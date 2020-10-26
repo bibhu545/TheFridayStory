@@ -1,6 +1,7 @@
 const express = require('express')
 const Comments = require('../models/commentModel')
 const utils = require('../utils')
+const checkAuth = require('../middlewares/routeGuard')
 
 const router = express.Router()
 
@@ -14,7 +15,7 @@ router.get('/:id', (req, res, next) => {
     })
 })
 
-router.post('/', (req, res, next) => {
+router.post('/', checkAuth, (req, res, next) => {
     let commentData = {
         article: "",
         user: "",
@@ -33,7 +34,7 @@ router.post('/', (req, res, next) => {
     })
 })
 
-router.put('/:id', (req, res, next) => {
+router.put('/:id', checkAuth, (req, res, next) => {
     let commentData = {
         commentBody: req.body.commentBody,
         lastUpdated: new Date()
@@ -48,7 +49,7 @@ router.put('/:id', (req, res, next) => {
     })
 })
 
-router.delete('/:id', (req, res, next) => {
+router.delete('/:id', checkAuth, (req, res, next) => {
     Category.findOneAndUpdate({ $or: [{ _id: req.params.id }, { comment: req.params.id }] }, { $set: { ActiveStatus: utils.ActiveStatus.Deleted } }).exec().then(response => {
         res.status(200).json({
             message: "Comment deleted"
