@@ -14,9 +14,9 @@ export class SignupRequest {
 export class ArticleModel {
     user: string;
     title: string;
-    categories: string = "0";
+    categories: string[];
     readingTime: number;
-    tags: string;
+    tags: dropDownmodel[];
     description: string;
     content: string;
 }
@@ -24,4 +24,8 @@ export class ArticleModel {
 export class CommentModel {
     user: string;
     comment: string;
+}
+export class dropDownmodel {
+    value: string;
+    text: string;
 }

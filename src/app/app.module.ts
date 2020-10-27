@@ -17,6 +17,7 @@ import { ChangePasswordComponent } from './Components/Account/change-password/ch
 import { ForgotPasswordComponent } from './Components/Account/forgot-password/forgot-password.component';
 import { ContributeComponent } from './Components/contribute/contribute.component';
 import { ViewArticleComponent } from './Components/view-article/view-article.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { ViewArticleComponent } from './Components/view-article/view-article.com
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     FormsModule,
     ModalModule.forRoot()
   ],

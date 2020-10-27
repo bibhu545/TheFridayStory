@@ -7,7 +7,7 @@ const adminMiddleware = require('../middlewares/adminMiddlewares')
 
 const router = express.Router()
 
-router.get('/get-category', (req, res, next) => {
+router.get('/getCategories', (req, res, next) => {
     Category.find({ isActive: utils.ActiveStatus.Active }).sort({ name: 1 }).exec().then(response => {
         res.status(200).json({
             data: response
@@ -17,7 +17,7 @@ router.get('/get-category', (req, res, next) => {
     })
 })
 
-router.post('/add-category', checkAuth, (req, res, next) => {
+router.post('/addCategories', checkAuth, (req, res, next) => {
     let categoryData = {
         name: req.body.name
     }
@@ -31,7 +31,7 @@ router.post('/add-category', checkAuth, (req, res, next) => {
     })
 })
 
-router.post('/edit-category/:id', checkAuth, (req, res, next) => {
+router.post('/editCategory/:id', checkAuth, (req, res, next) => {
     Category.findOneAndUpdate({ _id: req.params.id }, { $set: { name: req.body.name } }).exec().then(response => {
         res.status(200).json({
             data: response
@@ -41,7 +41,7 @@ router.post('/edit-category/:id', checkAuth, (req, res, next) => {
     })
 })
 
-router.post('/delete-category/:id', checkAuth, (req, res, next) => {
+router.post('/deleteCategory/:id', checkAuth, (req, res, next) => {
     Category.findOneAndUpdate({ _id: req.params.id }, { $set: { ActiveStatus: utils.ActiveStatus.Deleted } }).exec().then(response => {
         next();
     }).catch(error => {

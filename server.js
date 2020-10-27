@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const fileupload = require('express-fileupload')
+const cors = require('cors');
 
 const homeRoutes = require('./api/routes/homeRoutes');
 const userRoutes = require('./api/routes/userRoutes');
@@ -20,17 +21,31 @@ mongoose.connect('mongodb+srv://blogUser:blogPassword@testcluster.eik60.mongodb.
 
 
 const app = express();
+
+
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(fileupload({
-    limits: { fileSize: 5 * 1024 * 1024 },
-    createParentPath: true
+  limits: { fileSize: 5 * 1024 * 1024 },
+  createParentPath: true
 }))
 app.use(morgan('dev'))
 app.use('/uploads', express.static('./uploads'))
 
 // Point static path to dist (angular build results)
 app.use(express.static(path.join(__dirname, 'dist')));
+
+//set cors
+app.use((req, res, next) => {
+  req.header('Access-Control-Allow-Orgin', '*');
+  req.header('Access-Control-Allow-Heasers', 'Origin, X-Requested-With, Accept, Autherization');
+  if (req.method == 'OPTIONs') {
+    req.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, PATCH');
+    return res.status(200).json({});
+  }
+  next();
+})
+
 
 // Set our api routes
 app.use('/api', homeRoutes);
