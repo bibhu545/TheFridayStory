@@ -8,7 +8,6 @@ body{
     min-height: 100vh;
     background: linear-gradient(-45deg, #e6e6e6, white, white, white, #e6e6e6); 
 }
-
 .center{
     text-align: center;
 }
@@ -25,6 +24,6 @@ body{
 .btn{
     margin: 5px;
 }
-.card-body{
+.card-body-bg{
     background: linear-gradient(-45deg, lightgray, white,white, lightgray);
 }
