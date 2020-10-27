@@ -1,36 +1,44 @@
 <div class="content-form-wrapper">
+
+    {{article | json}}
+
     <form>
         <div class="form-group">
             <label for="title">Article title:</label>
-            <input type="text" class="form-control" id="title" name="title" placeholder="Plcae your title within 50 chars..." [(ngModel)]="article.title" />
+            <input type="text" class="form-control" id="title" name="title"
+                placeholder="Plcae your title within 50 chars..." [(ngModel)]="article.title" />
         </div>
         <div class="row">
             <div class="col-md-6 col-sm-12">
                 <div class="form-group">
-                    <label for="categories">Categories:</label>
-                    <select class="form-control" id="categories" name="categories" [(ngModel)]="article.categories">
-                        <option value="0">Select</option>
-                    </select>
+                    <label for="categories">Categories: <small class="text-secondary">(Select upto 3)</small></label>
+                    <ng-select [items]="categories" bindLabel="text" bindValue="value" [multiple]="true" placeholder="Select" name="categories"
+                        [(ngModel)]="article.categories" [maxSelectedItems]="3" (add)="onChange($event)">
+                    </ng-select>
                 </div>
             </div>
             <div class="col-md-6 col-sm-12">
                 <div class="form-group">
                     <label for="title">Reading time(in minutes):</label>
-                    <input type="number" min="0" max="90" class="form-control" id="title" name="title" [(ngModel)]="article.readingTime" placeholder="Approx time to read" />
+                    <input type="number" min="0" max="90" class="form-control" id="title" name="title"
+                        [(ngModel)]="article.readingTime" placeholder="Approx time to read" />
                 </div>
             </div>
         </div>
         <div class="form-group">
             <label for="description">Description:</label>
-            <textarea rows="3" class="form-control" id="description" name="description" placeholder="place a description within 200 chars..." [(ngModel)]="article.description"></textarea>
+            <textarea rows="3" class="form-control" id="description" name="description"
+                placeholder="place a description within 200 chars..." [(ngModel)]="article.description"></textarea>
         </div>
         <div class="form-group">
             <label for="content">Content:</label>
-            <textarea rows="8" class="form-control" id="content" name="content" [(ngModel)]="article.content"></textarea>
+            <textarea rows="8" class="form-control" id="content" name="content"
+                [(ngModel)]="article.content"></textarea>
         </div>
         <div class="form-group">
             <label for="tags">Article tags:</label>
-            <input type="text" class="form-control" id="tags" name="tags" placeholder="Plcae your tags comma separated..." [(ngModel)]="article.tags" />
+            <input type="text" class="form-control" id="tags" name="tags"
+                placeholder="Plcae your tags comma separated..." [(ngModel)]="article.tags" />
         </div>
         <div class="center">
             <button type="submit" class="btn btn-primary">Submit</button>

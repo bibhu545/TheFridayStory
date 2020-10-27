@@ -18,6 +18,7 @@ import { ForgotPasswordComponent } from './Components/Account/forgot-password/fo
 import { ContributeComponent } from './Components/contribute/contribute.component';
 import { ViewArticleComponent } from './Components/view-article/view-article.component';
 import { HttpClientModule } from '@angular/common/http';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    NgSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

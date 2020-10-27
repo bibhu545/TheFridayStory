@@ -34,4 +34,8 @@ export class ContributeComponent implements OnInit {
     console.log(this.article)
   }
 
+  onChange($event) {
+    console.log($event)
+  }
+
 }
