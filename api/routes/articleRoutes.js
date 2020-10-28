@@ -36,7 +36,7 @@ router.get('/:id', (req, res, next) => {
     })
 })
 
-router.post('/', checkAuth, articleMiddlewares.addNewTags, (req, res, next) => {
+router.post('/', articleMiddlewares.addNewTags, (req, res, next) => {
     let articleData = {
         user: req.body.user,
         title: req.body.title,

@@ -19,6 +19,7 @@ export class ArticleModel {
     tags: dropDownmodel[];
     description: string;
     content: string;
+    featuredImage: File;
 }
 
 export class CommentModel {

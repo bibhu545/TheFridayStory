@@ -1,8 +1,10 @@
 <div class="content-form-wrapper">
-
-    {{article | json}}
-
     <form>
+        <div class="form-group">
+            <label for="featuredImage">Featured Image: <small class="text-muted">(upto 1.5 Mb)</small></label>
+            <br />
+            <input type="file" id="featuredImage" accept="image/*" name="featuredImage" (change)="uploadFeaturedImage($event)" />
+        </div>
         <div class="form-group">
             <label for="title">Article title:</label>
             <input type="text" class="form-control" id="title" name="title"
@@ -13,7 +15,7 @@
                 <div class="form-group">
                     <label for="categories">Categories: <small class="text-secondary">(Select upto 3)</small></label>
                     <ng-select [items]="categories" bindLabel="text" bindValue="value" [multiple]="true" placeholder="Select" name="categories"
-                        [(ngModel)]="article.categories" [maxSelectedItems]="3" (add)="onChange($event)">
+                        [(ngModel)]="article.categories" [maxSelectedItems]="3">
                     </ng-select>
                 </div>
             </div>
@@ -35,13 +37,13 @@
             <textarea rows="8" class="form-control" id="content" name="content"
                 [(ngModel)]="article.content"></textarea>
         </div>
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label for="tags">Article tags:</label>
             <input type="text" class="form-control" id="tags" name="tags"
                 placeholder="Plcae your tags comma separated..." [(ngModel)]="article.tags" />
-        </div>
+        </div> -->
         <div class="center">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary" (click)="createStory()">Create Story</button>
             <button type="button" class="btn btn-secondary">Cancel</button>
         </div>
     </form>
